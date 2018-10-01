@@ -4,6 +4,10 @@ local utils = require "utils"
 local windows = require "windows"
 
 -- local log = hs.logger.new('modal-module','debug')
+modal.setHotkey = function(array, key) 
+  modal.hotkeyModifier = array
+  modal.hotkey = key
+end
 
 modal.displayModalText = function(txt)
   hs.alert.closeAll()
@@ -42,7 +46,7 @@ modal.states = {
       if self.hotkeyModal then
         self.hotkeyModal:enter()
       else
-        self.hotkeyModal = hs.hotkey.modal.new({"cmd"}, "space")
+        self.hotkeyModal = hs.hotkey.modal.new(modal.hotkeyModifier, modal.hotkey)
       end
       self.hotkeyModal:bind("","space", nil, function() fsm:toIdle(); windows.activateApp("Alfred 3") end)
       self.hotkeyModal:bind("","w", nil, function() fsm:toWindows() end)

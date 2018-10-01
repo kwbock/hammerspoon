@@ -1,6 +1,5 @@
 local module = {}
 local utils = require "utils"
-local emacs = require "emacs"
 
 -- ------------------
 -- simple vi-mode
@@ -102,13 +101,6 @@ module.appSpecific = {
   ["*"] = {
     activated = function()
       enableSimpleViMode()
-      emacs.enableEditWithEmacs()
-    end
-  },
-  ["Emacs"] = {
-    activated = function()
-      disableSimpleViMode()
-      emacs.disableEditWithEmacs()
     end
   },
   ["Google Chrome"] = {
@@ -149,6 +141,10 @@ module.appSpecific = {
     deactivated = function() module.deactivateAppKeys("iTerm2") end,
   }
 }
+
+module.addApplicationKeybindings = function(appName, definitions) 
+  module.appSpecific[appName] = definitions
+end
 
 -- Creates a new watcher and runs all the functions for specific `appName` and `events`
 -- listed in the module in `module.appSpecific`

@@ -1,4 +1,5 @@
 local multimedia = {}
+local modal = require "modal"
 
 multimedia.musicApp = "Google Play Music Desktop Player"
 
@@ -32,7 +33,7 @@ multimedia.addState = function(modal)
                      modal.displayModalText "h \t previous track\nl \t next track\nk \t volume up\nj \t volume down\ns \t play/pause\na \t launch player"
 
                      self.hotkeyModal:bind("","escape", function() fsm:toIdle() end)
-                     self.hotkeyModal:bind({"cmd"}, "space", nil, function() fsm:toMain() end)
+                     self.hotkeyModal:bind(modal.hotkeyModifier, modal.hotkey, nil, function() fsm:toMain() end)
 
                      bind(self.hotkeyModal, fsm)
                      self.hotkeyModal:enter()

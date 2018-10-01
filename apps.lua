@@ -1,4 +1,5 @@
 local apps = {}
+local modal = require "modal"
 local multimedia = require "multimedia"
 local windows = require "windows"
 local slack = require "slack"
@@ -9,7 +10,7 @@ apps.addState = function(modal)
                      self.hotkeyModal = hs.hotkey.modal.new()
                      modal.displayModalText "e\t emacs\ng \t chrome\n f\t Firefox\n i\t iTerm\n s\t slack\n b\t brave"
                      self.hotkeyModal:bind("","escape", function() fsm:toIdle() end)
-                     self.hotkeyModal:bind({"cmd"}, "space", nil, function() fsm:toMain() end)
+                     self.hotkeyModal:bind(modal.hotkeyModifier, modal.hotkey, nil, function() fsm:toMain() end)
                      for key, app in pairs({
                          i = "iTerm2",
                          g = "Google Chrome",
